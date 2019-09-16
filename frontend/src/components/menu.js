@@ -6,15 +6,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import Switch from '@material-ui/core/Switch';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormGroup from '@material-ui/core/FormGroup';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Link from '@material-ui/core/Link';
 import EventNoteIcon from '@material-ui/icons/EventNote';
 import ListAltIcon from '@material-ui/icons/ListAlt';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import InfoIcon from '@material-ui/icons/Info';
 
 import 'typeface-roboto';
@@ -42,13 +38,8 @@ const useStyles = makeStyles(theme => ({
 
 export default function MenuAppBar() {
   const classes = useStyles();
-  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-
-  function handleChange(event) {
-    setAuth(event.target.checked);
-  }
 
   function handleMenu(event) {
     setAnchorEl(event.currentTarget);
@@ -68,7 +59,7 @@ export default function MenuAppBar() {
           <Typography variant="h6"className={classes.title}>
               Todo App
             </Typography>
-              {auth && (
+              {(
               <div>
                 <IconButton
                   aria-label="menu"
