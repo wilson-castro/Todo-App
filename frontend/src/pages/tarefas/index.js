@@ -5,6 +5,7 @@ import axios from 'axios'
 import Header from '../../components/Header';
 import InputTextField from '../../components/inputTextField';
 import Button from '../../components/Button';
+import Table from '../../components/Table';
 
 import { makeStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -41,17 +42,12 @@ export default class Tarefas extends Component{
 					  <Button tipo="add"/>
 					  <Button tipo="search"/>
 					  <Button tipo="cancel"/>
-
-
-					  <Header title="Tarefas" aux="ativo" header="Descrição" />
 					
 				      </CardContent>
 				      </Card>
+
+					  <Table/>
 		       </Container>
-
-		
-
-
 			</div>
 		)
 	}
