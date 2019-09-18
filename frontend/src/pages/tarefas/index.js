@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 
-import axios from 'axios'
+
+import axios from 'axios';
+import Api from '../../services/api'
 
 import Header from '../../components/Header';
 import InputTextField from '../../components/inputTextField';
@@ -16,17 +18,45 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 
+const URL = 'http://localhost:3003/api/todos';
+
 export default class Tarefas extends Component{
+	constructor(props){
+		super(props)
+		this.state = { description: '', list:[] }
+
+		this.handleAdd = this.handleAdd.bind(this);
+		this.handleChange = this.handleChange.bind(this);
 	
+		this.refresh();
+	}
+
+	handleAdd(){
+		const description = this.state.description;
+		Api.post("/",{description})
+			.then(resp => this.refresh());
+
+	}
+	handleChange(event){
+		this.setState({...this.state, description: event.target.value });
+	}
+	refresh(){
+		Api.get(`?sort=-createdAt`)
+		.then(resp => this.setState({...this.state,description: '',list: resp.data}));
+
+	}
+
+
 	render(){
 
 		const styles = {
 		  container: {
-			shadowColor: 'rgba(0,0,0, .2)',
+			shadowColor: 'rgba(0,0,0, .rows2)',
 			display: 'flex',
 			flexWrap: 'wrap',
 		  }
 		 }
+
 
 		return(
 			<div>
@@ -37,16 +67,24 @@ export default class Tarefas extends Component{
 			   		<Card containerStyle={styles.container}>
 				      <CardContent >
 				  		
-				      <InputTextField label="Adicione uma tarefa" />
+				      <InputTextField
+				       label="Adicione uma tarefa"
+				       handleChange={this.handleChange}
+				       description={this.state.description} 
+				       />
 					  
-					  <Button tipo="add"/>
+					  <Button 
+					   handleAdd={this.handleAdd}
+					   tipo="add"
+					   />
+
 					  <Button tipo="search"/>
 					  <Button tipo="cancel"/>
 					
 				      </CardContent>
 				      </Card>
 
-					  <Table/>
+					  <Table list={this.state.list}/>
 		       </Container>
 			</div>
 		)

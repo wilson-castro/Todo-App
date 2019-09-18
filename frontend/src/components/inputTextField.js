@@ -37,6 +37,8 @@ export default function TextFields(props) {
         label={props.label}
         className={clsx(classes.textField, classes.dense)}
         margin="dense"
+        onChange={props.handleChange}
+        value={props.description}
         
       />
 
