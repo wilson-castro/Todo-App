@@ -73,7 +73,7 @@ export default class Tarefas extends Component{
 				       description={this.state.description} 
 				       />
 					  
-					  <Button 
+					  <Button
 					   handleAdd={this.handleAdd}
 					   tipo="add"
 					   />

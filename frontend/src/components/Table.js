@@ -7,16 +7,23 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const columns = [
-  { id: 'descricao',
+  { id: 'description',
     label: 'Descrição',
     minWidth: 200 ,
   },
+    {id: 'acoes',
+    label:"Ações",
+    minWidth:100,
+    align:'right',
+  },
 ];
 
-function createData(description) {
-  return { description };
+function createData(id,description, acoes) {
+  return { id,description,acoes };
 }
 
 
@@ -35,9 +42,12 @@ export default function StickyHeadTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  const rows = [props.list.map((dados) =>
-    createData(dados.description),
-  )];
+  const rows = props.list.map(todos =>
+    createData(todos._id,todos.description,
+    <IconButton onClick={() => props.handleRemote(todos)}>
+      <DeleteIcon/>
+    </IconButton>),
+  );
 
   function handleChangePage(event, newPage) {
     setPage(newPage);
@@ -69,7 +79,8 @@ export default function StickyHeadTable(props) {
             <TableBody>
                 {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
                 return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}
+                    >
                     {columns.map(column => {
                         const value = row[column.id];
                         return (

@@ -9,7 +9,7 @@ import CancelIcon from '@material-ui/icons/CancelPresentationSharp';
   export default function IconButtons(props) {  
     return (
         <IconButton 
-          onClick={ props.handleAdd}
+          onClick={props.handleAdd}
         >
           {
             props.tipo == "add" ? <AddBoxIcon style={{ fontSize: 35 }} /> :
