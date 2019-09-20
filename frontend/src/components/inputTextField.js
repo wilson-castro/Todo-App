@@ -17,19 +17,16 @@ const useStyles = makeStyles(theme => ({
 
 export default function TextFields(props) {
   const classes = useStyles();
-  
-  /*const [values, setValues] = React.useState({
-    name: 'Cat in the Hat',
-    age: '',
-    multiline: 'Controlled',
-    currency: 'EUR',
-  });
 
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value });
-  };
+  const heyHandler = (e) =>{
+		if(e.key === "Enter"){
+		  e.shiftKey ? props.handleSearch() : props.handleAdd()
+		}else if (e.key === "Escape"){
+		 props.handleClear()
+		}
+	  }
 
-*/
+
  return (
 
     <TextField
@@ -39,7 +36,7 @@ export default function TextFields(props) {
         margin="dense"
         onChange={props.handleChange}
         value={props.description}
-        
+        onKeyUp={heyHandler}
       />
 
   );

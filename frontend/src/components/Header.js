@@ -36,7 +36,7 @@ export default function SimpleCard(props) {
 	      <CardContent>
 	  		<Typography variant="h5" component="h3">
 	          {props.title}
-	          { props.aux == "ativo" ? bull :""}
+	          { props.aux ==="ativo" ? bull :""}
 	          <small>{props.header}</small>
 	        </Typography>
 	      </CardContent>

@@ -9,6 +9,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
+import ReplayIcon from '@material-ui/icons/Replay';
 
 const columns = [
   { id: 'description',
@@ -22,8 +24,8 @@ const columns = [
   },
 ];
 
-function createData(id,description, acoes) {
-  return { id,description,acoes };
+function createData(id,description,done, acoes) {
+  return { id,description,done,acoes };
 }
 
 
@@ -43,11 +45,26 @@ export default function StickyHeadTable(props) {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   const rows = props.list.map(todos =>
-    createData(todos._id,todos.description,
-    <IconButton onClick={() => props.handleRemove(todos)}>
+    createData(todos._id,todos.description,todos.done,
+    <>
+     <IconButton
+    disabled={todos.done}
+    onClick={() => props.handleMarkAsDone(todos)}>
+       <CheckBoxIcon/>
+    </IconButton>
+    <IconButton
+    disabled={!todos.done}
+    onClick={() => props.handleMarkAsPending(todos)}>
+        <ReplayIcon/>
+      </IconButton>
+    <IconButton
+    disabled={!todos.done}
+    onClick={() => props.handleRemove(todos)}>
       <DeleteIcon/>
-    </IconButton>),
-  );
+    </IconButton>
+      </>
+     )
+    );
 
   function handleChangePage(event, newPage) {
     setPage(newPage);
@@ -79,17 +96,20 @@ export default function StickyHeadTable(props) {
             <TableBody>
                 {rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(row => {
                 return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.id}
+                    <TableRow
+                    hover role="checkbox"
+                    tabIndex={-1}
+                    key={row.id}
                     >
                     {columns.map(column => {
                         const value = row[column.id];
                         return (
-                        <TableCell key={column.id} align={column.align}>
+                        <TableCell  className={row.done ? "markedAsDone" : ""} key={column.id} align={column.align}>
                             {column.format && typeof value === 'number' ? column.format(value) : value}
                         </TableCell>
                         );
                     })}
-                    </TableRow>
+                    </TableRow> 
                 );
                 })}
             </TableBody>

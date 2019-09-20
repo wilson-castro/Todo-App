@@ -1,7 +1,7 @@
 import React from 'react';
 import Menu from './components/menu';
-import Routes from './routes.js'
-
+import Routes from './routes.js';
+import './template/styles.css';
 
 function App() {
   return (
