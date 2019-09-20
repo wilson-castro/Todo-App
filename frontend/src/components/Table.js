@@ -44,7 +44,7 @@ export default function StickyHeadTable(props) {
 
   const rows = props.list.map(todos =>
     createData(todos._id,todos.description,
-    <IconButton onClick={() => props.handleRemote(todos)}>
+    <IconButton onClick={() => props.handleRemove(todos)}>
       <DeleteIcon/>
     </IconButton>),
   );

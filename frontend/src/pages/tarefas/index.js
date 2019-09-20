@@ -27,7 +27,8 @@ export default class Tarefas extends Component{
 
 		this.handleAdd = this.handleAdd.bind(this);
 		this.handleChange = this.handleChange.bind(this);
-	
+		this.handleRemove = this.handleRemove.bind(this);
+
 		this.refresh();
 	}
 
@@ -44,6 +45,10 @@ export default class Tarefas extends Component{
 		Api.get(`?sort=-createdAt`)
 		.then(resp => this.setState({...this.state,description: '',list: resp.data}));
 
+	}
+	handleRemove(todo){
+		Api.delete(`/${todo._id}`)
+		.then(resp => this.refresh())
 	}
 
 
@@ -84,7 +89,8 @@ export default class Tarefas extends Component{
 				      </CardContent>
 				      </Card>
 
-					  <Table list={this.state.list}/>
+					  <Table list={this.state.list}
+					  handleRemove={this.handleRemove}/>
 		       </Container>
 			</div>
 		)
